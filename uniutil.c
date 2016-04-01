@@ -25,10 +25,17 @@ along with unibilium.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <unistd.h>
+#ifndef _WIN32
+# include <unistd.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#ifdef _MSC_VER
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#endif
 
 #ifndef TERMINFO_DIRS
 #error "internal error: TERMINFO_DIRS is not defined"
